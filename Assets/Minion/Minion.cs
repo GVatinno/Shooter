@@ -28,18 +28,22 @@ public class Minion : MonoBehaviour {
 	public void PlayIdle()
 	{
 		int index = Random.Range (0, mIdleAnimCount);
-		if (mAnim != null)
-			mAnim.Play (mIdleAnims[index], -1, 0.0f);
+		mAnim.Play (mIdleAnims[index], -1, 0.0f);
 	}
 
 	public void PlayDamaged()
 	{
 		int index = Random.Range (0, mDamagedAnimCount);
-		if (mAnim != null)
-			mAnim.Play (mDamagedAnims[index], -1, 0.0f);
+        mAnim.Play (mDamagedAnims[index], -1, 0.0f);
 	}
 
-	public void MoveAnimationInDirectionFBLR(Vector2 direction)
+    public void Run(bool value)
+    {
+        mAnim.SetBool("Run", value);
+    }
+
+
+    public void MoveAnimationInDirectionFBLR(Vector2 direction)
 	{
 		mAnim.SetFloat ("MoveX", direction.x);
 		mAnim.SetFloat ("MoveY", direction.y);

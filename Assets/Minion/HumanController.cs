@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class HumanController : MonoBehaviour {
 
-	public float minionSpeed = 50.0f;
+	public float minionSpeedV = 50.0f;
+    public float minionSpeedH = 20.0f;
 
-	private Minion mMinion;
+    private Minion mMinion;
 
 
 	// Use this for initialization
@@ -22,14 +23,36 @@ public class HumanController : MonoBehaviour {
 			mMinion.PlayIdle ();
 		if (Input.GetKeyDown ("2"))
 			mMinion.PlayDamaged ();
-		
-		float x = Input.GetAxis ("Horizontal");
+        bool run = Input.GetKey(KeyCode.LeftShift);
+
+        
+
+        float x = Input.GetAxis ("Horizontal");
 		float y = Input.GetAxis ("Vertical");
 
-		float veclocityX = x * Time.deltaTime * minionSpeed;
-		float veclocityZ = y * Time.deltaTime * minionSpeed;
+        float veclocityZ = y * Time.deltaTime * minionSpeedV;
+        float veclocityX = 0.0f;
+        if (veclocityZ > 0.0f)
+        {
+            veclocityX = x * Time.deltaTime * minionSpeedH;
 
-		mMinion.MoveAnimationInDirectionFBLR (new Vector2 (x, y));
-		mMinion.ApplyVelocity(new Vector3(-veclocityX, 0.0f, veclocityZ));
-	}
+        }
+        else
+        {
+            veclocityX = 0.0f;
+            run = false;
+        }
+            
+
+        if (run)
+        {
+            veclocityX *= 5.0f;
+            veclocityZ *= 5.0f;
+        }
+
+        mMinion.MoveAnimationInDirectionFBLR (new Vector2 (x, y));
+		mMinion.ApplyVelocity(new Vector3(veclocityX, 0.0f, veclocityZ));
+
+        mMinion.Run(run);
+    }
 }

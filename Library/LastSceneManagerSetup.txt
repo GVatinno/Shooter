@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Minion.unity
+- path: Assets/areana.unity
   isLoaded: 1
   isActive: 1
